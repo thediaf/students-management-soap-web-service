@@ -18,6 +18,13 @@ public class Student implements Serializable
         super();
     }
 
+    public Student(int id, String lastname, String firstname)
+    {
+        super();
+        this.setId(id);
+        this.setLastname(lastname);
+        this.setFirstname(firstname);
+    }
     public Student(int id, String lastname, String firstname, String code, String classroom)
     {
         super();

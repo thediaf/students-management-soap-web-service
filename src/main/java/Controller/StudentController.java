@@ -29,6 +29,7 @@ public class StudentController
     {
         Student student = new Student(lastname, firstname, code, classroom);
 
+        // System.out.println(lastname);
         return studentModel.insert(student);
     }
     
@@ -58,23 +59,15 @@ public class StudentController
     }
 
     @WebMethod
-    public int update(@WebParam(name = "id")int id, @WebParam(name = "attribute")String attribute, 
-                        @WebParam(name = "value")String value
-                    )  
+    public int update(@WebParam(name = "id")int id, @WebParam(name = "lastname")String lastname, 
+                        @WebParam(name = "firstname")String firstname
+                    ) throws SQLException  
     {
-        String query = ""; 
-        if (attribute == "nom")
-            query = "update student set lastname = ? where id = ?";
-        else if(attribute == "prenom")
-            query = "update student set firstname = ? where id = ?";  
-        else if(attribute == "code")
-            query = "update student set code = ? where id = ?";
-        else if(attribute == "classe")
-            query = "update student set classroom = ? where id = ?";     
-        else
-            query = "";
-   
-        return studentModel.update(id, value, query);
+        Student student = new Student(id, lastname, firstname);
+        // System.out.println(lastname);
+        // System.out.println(student.toString());
+        
+        return studentModel.update(student);
     }
 
     @WebMethod

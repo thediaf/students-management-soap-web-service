@@ -81,12 +81,17 @@ public class StudentModel
     public Student getStudent(int id) throws SQLException 
     {
         String query = "select * from student where id = ?";
+        Student student = new Student();
 
         PreparedStatement preparedStmt = connect.prepareStatement(query);
         preparedStmt.setInt(1, id);
 
-        ResultSet response = preparedStmt.executeQuery();   
-        Student student = new Student(response.getInt("id"), response.getString("lastname"), response.getString("firstname"), response.getString("code"), response.getString("classroom"));
+        ResultSet response = preparedStmt.executeQuery();  
+        if (response.next()) {
+            student.setId(response.getInt("id"));
+            student.setLastname(response.getString("lastname"));
+            student.setFirstname(response.getString("firstname"));
+        } 
             
         return student;
     }
@@ -111,26 +116,20 @@ public class StudentModel
         return response;
     }
 
-    public int update(int id, String value, String query) 
+    public int update(Student student) throws SQLException 
     {
-        int response = 0;
-        // String query = "update Student set code = ? where id = ?";
+        String query = "update student set lastname = ?, firstname = ? where id = ?";
 
-        try
-        {
-            PreparedStatement preparedStmt = connect.prepareStatement(query);
-            
-            preparedStmt.setString(1, value);
-            preparedStmt.setInt(2, id);
+        PreparedStatement preparedStmt = connect.prepareStatement(query);
+        
+        preparedStmt.setString(1, student.getLastname());
+        preparedStmt.setString(2, student.getFirstname());
+        preparedStmt.setInt(3, student.getId());
+        // preparedStmt.setString(1, lastname);
+        // preparedStmt.setString(2, firstname);
+        // preparedStmt.setInt(3, id);
 
-            response = preparedStmt.executeUpdate();
-            
-        }
-        catch (Exception e)
-        {
-            System.err.println(e.getMessage());
-        }
+        return preparedStmt.executeUpdate();
 
-        return response;
     }
 }
