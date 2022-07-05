@@ -88,7 +88,6 @@ public class StudentModel
         ResultSet response = preparedStmt.executeQuery();   
         Student student = new Student(response.getInt("id"), response.getString("lastname"), response.getString("firstname"), response.getString("code"), response.getString("classroom"));
             
-
         return student;
     }
 

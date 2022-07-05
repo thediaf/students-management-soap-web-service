@@ -52,6 +52,12 @@ public class StudentController
     }
 
     @WebMethod
+    public Student getStudent(@WebParam(name = "id")int id) throws SQLException 
+    {
+        return studentModel.getStudent(id);
+    }
+
+    @WebMethod
     public int update(@WebParam(name = "id")int id, @WebParam(name = "attribute")String attribute, 
                         @WebParam(name = "value")String value
                     )  
