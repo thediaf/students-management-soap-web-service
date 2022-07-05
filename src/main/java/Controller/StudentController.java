@@ -2,6 +2,8 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -31,9 +33,22 @@ public class StudentController
     }
     
     @WebMethod
-    public ResultSet select() throws SQLException 
+    public List<Student> getStudents() throws SQLException 
     {
-        return  studentModel.select();
+        ResultSet result =  studentModel.select();
+        List<Student> students = new ArrayList<Student>();
+        while (result.next())
+        {
+            int id = result.getInt("id");
+            String firstname = result.getString("firstname");
+            String lastname = result.getString("lastname");
+            String code = result.getString("code");
+            String classroom = result.getString("classroom");
+            
+            students.add(new Student(id, firstname, lastname, code, classroom));
+        }
+
+        return students;
     }
 
     @WebMethod
