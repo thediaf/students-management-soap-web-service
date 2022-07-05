@@ -2,16 +2,11 @@ package Model;
 
 import java.sql.*;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-
 import Entity.Student;
 
 /**
  * StudentModel
  */
-@WebService
 public class StudentModel 
 {
     private final String url = "jdbc:mysql://localhost:3306/java_exercice";
@@ -35,8 +30,7 @@ public class StudentModel
         return DriverManager.getConnection(url, user, password);
     }
 
-    @WebMethod
-    public boolean insert(@WebParam Student student) 
+    public boolean insert(Student student) 
     {
         boolean result = true;
 
@@ -61,7 +55,6 @@ public class StudentModel
         return result;
     }
 
-    @WebMethod
     public ResultSet select() 
     {
         ResultSet result = null;
@@ -85,8 +78,7 @@ public class StudentModel
         
     }
 
-    @WebMethod
-    public boolean delete(@WebParam int id) 
+    public boolean delete(int id) 
     {
         boolean response = true;
         String query = "delete from Student where id = ?";
@@ -106,8 +98,7 @@ public class StudentModel
         return response;
     }
 
-    @WebMethod
-    public int update(@WebParam int id, @WebParam String value, @WebParam String query) 
+    public int update(int id, String value, String query) 
     {
         int response = 0;
         // String query = "update Student set code = ? where id = ?";
