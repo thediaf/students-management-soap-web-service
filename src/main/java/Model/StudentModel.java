@@ -59,7 +59,7 @@ public class StudentModel
     {
         ResultSet result = null;
 
-        String query = "SELECT * FROM Student";
+        String query = "SELECT * FROM student";
 
         try
         {
@@ -78,10 +78,24 @@ public class StudentModel
         
     }
 
+    public Student getStudent(int id) throws SQLException 
+    {
+        String query = "select * from student where id = ?";
+
+        PreparedStatement preparedStmt = connect.prepareStatement(query);
+        preparedStmt.setInt(1, id);
+
+        ResultSet response = preparedStmt.executeQuery();   
+        Student student = new Student(response.getInt("id"), response.getString("lastname"), response.getString("firstname"), response.getString("code"), response.getString("classroom"));
+            
+
+        return student;
+    }
+
     public boolean delete(int id) 
     {
         boolean response = true;
-        String query = "delete from Student where id = ?";
+        String query = "delete from student where id = ?";
 
         try
         {
